@@ -23,8 +23,6 @@ This Laravel project demonstrates how to integrate and use Redis for caching to 
 - Laravel >= 10.x
 - Redis server installed and running
 - MySQL
-- Node.js >= 16.x
-- npm >= 8.x
 
 ---
 
