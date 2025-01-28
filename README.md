@@ -1,66 +1,185 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# **Laravel Redis Integration Sample**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## **Project Overview**
+This Laravel project demonstrates how to integrate and use Redis for caching to improve application performance. It provides an example of fetching and caching article data using Redis.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## **Features**
+- **Article Management**:
+  - Manage articles with categories and authors.
+  - Fetch all articles with optimized Redis caching.
+- **Redis Integration**:
+  - Cache data to reduce database queries and improve response time.
+  - Use `Redis::get` and `Redis::set` methods for storing and retrieving data.
+- **RESTful API**:
+  - Expose endpoints for managing articles, including a Redis-powered endpoint.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## **Requirements**
+- PHP >= 8.1
+- Composer >= 2.5.4
+- Laravel >= 10.x
+- Redis server installed and running
+- MySQL
+- Node.js >= 16.x
+- npm >= 8.x
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## **Directory Structure**
+Below is a simplified overview of the relevant directory structure:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
+└── fvarli-laravel-redis-sample/
+    ├── README.md
+    ├── composer.json
+    ├── .env.example
+    ├── app/
+    │   ├── Http/
+    │   │   ├── Controllers/
+    │   │   │   └── ArticleController.php
+    │   ├── Models/
+    │   │   ├── Article.php
+    │   │   ├── Category.php
+    │   │   └── User.php
+    ├── config/
+    │   └── database.php
+    ├── database/
+    │   ├── migrations/
+    │   │   ├── create_articles_table.php
+    │   │   ├── create_categories_table.php
+    │   │   └── create_article_category_table.php
+    │   ├── seeders/
+    │   │   ├── ArticleSeeder.php
+    │   │   ├── CategorySeeder.php
+    │   │   └── UserSeeder.php
+    ├── routes/
+    │   └── api.php
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## **Setup Instructions**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/fvarli/fvarli-laravel-redis-sample.git
+   cd fvarli-laravel-redis-sample
+   ```
 
-### Premium Partners
+2. **Install dependencies**
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Configure environment variables**
+   - Copy `.env.example` to `.env`.
+   - Update the database credentials and Redis connection in the `.env` file:
+     ```env
+     DB_DATABASE=your_database_name
+     DB_USERNAME=your_username
+     DB_PASSWORD=your_password
+     REDIS_HOST=127.0.0.1
+     REDIS_PASSWORD=null
+     REDIS_PORT=6379
+     ```
 
-## Contributing
+4. **Generate the application key**
+   ```bash
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Migrate the database**
+   ```bash
+   php artisan migrate
+   ```
 
-## Code of Conduct
+6. **Seed the database**
+   ```bash
+   php artisan db:seed
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Serve the application**
+   ```bash
+   php artisan serve
+   ```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## **API Endpoints**
 
-## License
+| Method | Endpoint              | Description                          |
+|--------|-----------------------|--------------------------------------|
+| GET    | `/api/articles`       | Fetch all articles                  |
+| GET    | `/api/articlesWithRedis` | Fetch all articles using Redis caching |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## **Redis Integration Details**
+
+- **Controller Implementation**:
+  In `ArticleController.php`, the `articlesWithRedis` method fetches data from Redis. If the data is not cached, it retrieves the data from the database, caches it, and returns it:
+
+  ```php
+  public function articlesWithRedis()
+  {
+      $redis = Redis::get('articles');
+
+      if ($redis) {
+          return json_decode($redis);
+      }
+
+      $articles = Article::all();
+      Redis::set('articles', $articles);
+
+      return $articles;
+  }
+  ```
+
+- **Clearing the Cache**:
+  Use the following command to clear the Redis cache:
+  ```bash
+  php artisan cache:clear
+  ```
+
+---
+
+## **Database Structure**
+
+### Tables
+
+1. **`articles`**
+   - `id`
+   - `title`
+   - `slug`
+   - `body`
+   - `excerpt`
+   - `user_id` (foreign key)
+   - `image`
+   - `status` (`draft` or `published`)
+   - `published_at`
+   - Timestamps
+
+2. **`categories`**
+   - `id`
+   - `name`
+   - Timestamps
+
+3. **`article_category`**
+   - `id`
+   - `article_id` (foreign key)
+   - `category_id` (foreign key)
+   - Timestamps
+
+---
+
+## **Official Documentation**
+- [Laravel Documentation](https://laravel.com/docs)
+- [Redis Documentation](https://redis.io/docs)
+
+---
+
+## **License**
+This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
