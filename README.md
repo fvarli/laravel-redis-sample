@@ -79,6 +79,7 @@ Below is a simplified overview of the relevant directory structure:
      DB_DATABASE=your_database_name
      DB_USERNAME=your_username
      DB_PASSWORD=your_password
+     REDIS_CLIENT=predis
      REDIS_HOST=127.0.0.1
      REDIS_PASSWORD=null
      REDIS_PORT=6379
@@ -99,7 +100,28 @@ Below is a simplified overview of the relevant directory structure:
    php artisan db:seed
    ```
 
-7. **Serve the application**
+7. **Install Redis** (Linux instructions):
+   - Update your system:
+     ```bash
+     sudo apt update && sudo apt upgrade -y
+     ```
+   - Install Redis:
+     ```bash
+     sudo apt install redis-server
+     ```
+   - Enable and start the Redis service:
+     ```bash
+     sudo systemctl enable redis
+     sudo systemctl start redis
+     ```
+   - Verify Redis is running:
+     ```bash
+     redis-cli ping
+     # Expected response: PONG
+     ```
+   - Optionally, configure Redis in `/etc/redis/redis.conf` for production.
+
+8. **Serve the application**
    ```bash
    php artisan serve
    ```
